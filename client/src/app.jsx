@@ -4,6 +4,7 @@ import RestaurantCard from './components/RestaurantCard.jsx';
 import '../dist/styles.css';
 import Footer from './components/Footer.jsx';
 import $ from 'jquery';
+import axios from 'axios';
 
 class App extends React.Component {
 	constructor(props) {
@@ -23,31 +24,26 @@ class App extends React.Component {
     // console.log('window location.href: ', window.location.href);
 
     var id = window.location.href.split('/')[4];
-    // console.log('getting recommended restaurants for id: ' + id)
+    console.log('getting recommended restaurants for id: ' + id)
 
     //error handling if id is included in URL
     if (window.location.href.split('/')[4] !== undefined) {
-      $.ajax({
-        url: `http://13.56.114.101:3004/api/restaurants/${id}/nearby`,
-        method: "GET",
-        success: (data) => {
-          this.setState({
-            currentRestaurant: data[0],
-            nearbyRestaurants: data[1],
-          }),
-					console.log('current restaurants ', data[0])
-					console.log('nearby restaurants ', data[1])
-        },
-        error: (err) => {
-          console.log('GET Error: ', err)
-        }
-      })
-    } else {
+			axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
+			.then(({data}) => {
+				console.log('axios got')
+				this.setState({
+					currentRestaurant: data[0],
+					nearbyRestaurants: data[1]
+				})
+			})
+			.catch((err) => {
+      	throw err;
+    	})
+		} else {
       this.setState({
         checkID: false
       })
     }
-
   }
 
   _goToRestaurant(id) {

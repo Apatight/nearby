@@ -1,25 +1,9 @@
 {
-  "name": "nearBy",
-  "version": "",
-  "description": "Nearby recommendations",
-  "author": "Oliver Han",
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.13.0"
-  },
-  "scripts": {
-    "start": "node ./server/index.js",
-    "server": "nodemon ./servr/index.js",
-    "seed": "node ./seed.js",
-    "build": "webpack -d --watch",
-    "build:prod": "webpack -p",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "docker": "npm run build:prod && npm run seed && npm start",
-    "generate": "node helper.js"
-  },
+  "name": "nearby",
+  "version": "1.0.0",
+  "description": "apateez-nearby",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
@@ -29,7 +13,6 @@
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-15": "^1.0.5",
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "^4.16.3",
     "faker": "^4.1.0",
@@ -48,7 +31,33 @@
     "webpack": "^3.11.0",
     "webpack-cli": "^2.0.14"
   },
+  "scripts": {
+    "start": "node ./server/index.js",
+    "start:watch": "nodemon ./server/index.js",
+    "seed": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file fullList.json --numInsertionWorkers 8",
+    "build": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "docker": "npm run build:prod && npm run seed && npm start",
+    "generate": "node createDummyData.js",
+    "fix": "truncate -s -1 fullList.json && echo ] >> fullList.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apatight/nearby.git"
+  },
+  "author": "Oliver Han",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Apatight/nearby/issues"
+  },
   "jest": {
+    "globals": {
+      "BASE_URL": "http://127.0.0.1:3000"
+    },
     "setupTestFrameworkScriptFile": "<rootDir>/client/src/components/TestSetup.js"
-  }
+  },
+  "homepage": "https://github.com/Apatight/nearby#readme"
 }

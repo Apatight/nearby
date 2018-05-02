@@ -12,7 +12,7 @@ mongoose.connect(mongoUrl);
 // mongoose.connect(mongoUrlDocker);
 
 mongoose.connection.on('connected', function() {
-  console.log('Mongoose connection open')
+  console.log(`Mongoose connection open on ${mongoUrl}`)
 });
 
 mongoose.connection.on('error',function (err) {
@@ -35,9 +35,9 @@ app.get('/restaurants/:id', function(req, res) {
 });
 
 app.get('/api/restaurants/:id/nearby', function(req, res) {
+  console.log('app got')
 	var placeId = req.params.id;
-  console.log("GET " + req.url); 
-
+  console.log("GET " + req.url);
   // find recommended restaurants based on id
   var results = [];
   db.findOne(placeId, (err, data) => {

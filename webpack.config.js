@@ -1,8 +1,15 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/client/src');
-var DIST_DIR = path.join(__dirname, '/client/dist');
+const webpack = require('webpack');
+const path = require('path');
+const SRC_DIR = path.join(__dirname, '/client/src');
+const DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
+  plugins: [
+    new webpack.DefinePlugin({
+      'BASE_URL': JSON.stringify('http://localhost:3004'),
+      'IMAGE_URL': JSON.stringify('https://s3-us-west-1.amazonaws.com/apateez'),
+    })
+  ],
   entry: `${SRC_DIR}/app.jsx`,
   output: {
     filename: 'bundle.js',
@@ -13,15 +20,16 @@ module.exports = {
       {
         test : /\.jsx?/,
         include : SRC_DIR,
-        loader : 'babel-loader',      
+        exclude: /node_modules/,
+        loader : 'babel-loader',
         query: {
           presets: ['react', 'es2015']
-       }
+       },
       },
       {
         test: /\.css$/,
         use: ['style-loader','css-loader']
       }
-    ]
+    ],
   }
 };

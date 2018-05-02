@@ -1,5 +1,21 @@
 const mongoose = require('mongoose');
 
+// const mongoUrlDocker = 'mongodb://database/apateez-nearby';
+// const mongoUrl = 'mongodb://localhost/apateez-nearby';
+//
+// mongoose.connect(mongoUrl); // Try localhost first
+//
+// mongoose.connection.on('connected', () => {
+//   console.log('Mongoose connection open');
+// });
+//
+// mongoose.connection.on('error', (err) => {
+//   console.log(`Mongoose default connection error: ${err}`);
+//   mongoose.connect(mongoUrlDocker);
+// });
+
+
+
 const restaurantSchema = mongoose.Schema({
   name: String,
   place_id: { type: String, unique: true },

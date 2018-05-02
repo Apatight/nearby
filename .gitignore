@@ -7,15 +7,15 @@ npm-debug.log
 node_modules/
 
 
-## Data File ##
+## Data Files ##
 fullList.json
+allPhotoRef.json
 
 ## Old Seeder ##
 seed.js
 
 ## Webpack bundle ##
 /client/dist/bundle.js
-
 
 pids
 *.pid
