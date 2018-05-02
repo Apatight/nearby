@@ -34,7 +34,9 @@ class App extends React.Component {
           this.setState({
             currentRestaurant: data[0],
             nearbyRestaurants: data[1],
-          })
+          }),
+					console.log('current restaurants ', data[0])
+					console.log('nearby restaurants ', data[1])
         },
         error: (err) => {
           console.log('GET Error: ', err)
@@ -45,7 +47,7 @@ class App extends React.Component {
         checkID: false
       })
     }
-    
+
   }
 
   _goToRestaurant(id) {
@@ -54,7 +56,7 @@ class App extends React.Component {
   }
 
 	render() {
-    
+
     let restaurantCards = this.state.nearbyRestaurants.map((num, index) => {
       return (
         <RestaurantCard nearbyRestaurant={this.state.nearbyRestaurants[index]} key={index.toString()} switchRestaurant={this._goToRestaurant.bind(this)} />

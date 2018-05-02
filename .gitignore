@@ -6,6 +6,17 @@ npm
 npm-debug.log
 node_modules/
 
+
+## Data File ##
+fullList.json
+
+## Old Seeder ##
+seed.js
+
+## Webpack bundle ##
+/client/dist/bundle.js
+
+
 pids
 *.pid
 logs

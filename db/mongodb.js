@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var restaurantSchema = mongoose.Schema({
+const restaurantSchema = mongoose.Schema({
   name: String,
   place_id: { type: String, unique: true },
   google_rating: Number,
@@ -28,7 +28,6 @@ function findOne(id, callback) {
 
 // insertOne inserts a restaurant into the db
 function insertOne(restaurant, callback) {
-  console.log('inserting one restaurant');
   RestaurantModel.create(restaurant, callback);
 }
 
