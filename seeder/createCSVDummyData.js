@@ -1,47 +1,47 @@
 const fs = require('fs');
 const faker = require('faker');
-const photoRefs = require('./allPhotoRef.json')
+const photoRefs = require('./allPhotoRef.json');
 
-const fileName = 'dataList.csv'
+const fileName = 'dataList.csv';
 
 const entryNum = 10000000; // For production
 // const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array
-  let photosArr = [];
-  for (var j = 0; j < 5; j++) {
-    photosArr.push(photoRefs[Math.floor(Math.random() * 1000)])
+  const photosArr = [];
+  for (let i = 0; i < 5; i += 1) {
+    photosArr.push(photoRefs[Math.floor(Math.random() * 1000)]);
   }
   // Create nearby array
-  let nearbyArr = [];
-  for (let j = 0; j < 6; j++) {
-    nearbyArr.push(Math.floor(Math.random()*entryNum))
+  const nearbyArr = [];
+  for (let j = 0; j < 6; j += 1) {
+    nearbyArr.push(Math.floor(Math.random() * entryNum));
   }
 
-  let obj = `${count},${faker.name.findName()},${Math.floor(Math.random()*5.95)},${Math.floor(Math.random()*5.95)},"{${photosArr}}",${faker.address.county()},${Math.floor(Math.random()*4.9)},${faker.address.city()},"{${nearbyArr}}"`
+  const obj = `${count},${faker.name.findName()},${Math.floor(Math.random() * 5.95)},${Math.floor(Math.random() * 5.95)},"{${photosArr}}",${faker.address.county()},${Math.floor(Math.random() * 4.9)},${faker.address.city()},"{${nearbyArr}}"`;
   return obj;
-}
+};
 
 
-let generateJSON = () => {
-  let options = {
-    autoClose: true
+const generateJSON = () => {
+  const options = {
+    autoClose: true,
   };
 
-  let writeStream = fs.createWriteStream(fileName, options);
+  const writeStream = fs.createWriteStream(fileName, options);
   let i = 0;
-  let write = function() {
+  const write = () => {
     let ok = true;
     do {
-      i++;
-      ok = writeStream.write(createEntry(i)+'\n');
+      i += 1;
+      ok = writeStream.write(`${createEntry(i)}\n`);
     } while (i < entryNum && ok);
     if (i < entryNum) {
       writeStream.once('drain', write);
     }
   };
   write();
-}
+};
 
 generateJSON();

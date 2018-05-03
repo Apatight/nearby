@@ -1,23 +1,23 @@
 const fs = require('fs');
 const faker = require('faker');
-const photoRefs = require('./allPhotoRef.json')
+const photoRefs = require('./allPhotoRef.json');
 
-const fileName = 'dataList.json'
+const fileName = 'dataList.json';
 const entryNum = 10000000; // For prod
 // const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array
-  let photosArr = [];
-  for (var j = 0; j < 5; j++) {
-    photosArr.push(photoRefs[Math.floor(Math.random() * 1000)])
+  const photosArr = [];
+  for (let j = 0; j < 5; j += 1) {
+    photosArr.push(photoRefs[Math.floor(Math.random() * 1000)]);
   }
   // Create nearby array
-  let nearbyArr = [];
-  for (let j = 0; j < 6; j++) {
-    nearbyArr.push(Math.floor(Math.random()*entryNum))
+  const nearbyArr = [];
+  for (let j = 0; j < 6; j += 1) {
+    nearbyArr.push(Math.floor(Math.random() * entryNum));
   }
-  let obj = {
+  const obj = {
     place_id: count,
     name: faker.name.findName(),
     google_rating: Math.floor(Math.random() * 5.95),
@@ -26,28 +26,27 @@ const createEntry = (count) => {
     neighborhood: faker.address.county(),
     price_level: Math.floor(Math.random() * 4.9),
     types: faker.address.city(),
-    nearby: nearbyArr
-  }
+    nearby: nearbyArr,
+  };
   return obj;
-}
+};
 
 
-
-let generateJSON = () => {
-  let options = {
-    autoClose: true
+const generateJSON = () => {
+  const options = {
+    autoClose: true,
   };
 
-  let writeStream = fs.createWriteStream(fileName, options);
+  const writeStream = fs.createWriteStream(fileName, options);
   let i = 0;
-  let write = function() {
+  const write = () => {
     let ok = true;
     do {
-      i++;
+      i += 1;
       if (i === 1) {
-        writeStream.write('[' + JSON.stringify(createEntry(i))+ ',');
+        writeStream.write(`[${JSON.stringify(createEntry(i))},`);
       } else {
-        ok = writeStream.write(JSON.stringify(createEntry(i))+ ',');
+        ok = writeStream.write(`${JSON.stringify(createEntry(i))},`);
       }
     } while (i < entryNum && ok);
     if (i < entryNum) {
@@ -55,6 +54,6 @@ let generateJSON = () => {
     }
   };
   write();
-}
+};
 
 generateJSON();
