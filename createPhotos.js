@@ -1,3 +1,6 @@
+// run node createPhotos.js to pull all image reference IDs and place them into an array.
+// Array is stored in allPhotoRef.json
+
 const fs = require('fs');
 const AllData = require('./195-Zagat-AllData.json')
 
@@ -14,9 +17,8 @@ const createPhotosJSON = (array) => {
   return photosArr
 }
 
-
 // createPhotosJSON(AllData);
-var results = createPhotosJSON(AllData);
+let results = createPhotosJSON(AllData);
 
 fs.appendFileSync('./allPhotoRef.json', JSON.stringify(results), function (err) {
   if (err) throw err;

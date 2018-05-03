@@ -21,6 +21,8 @@
     "jquery": "^3.3.1",
     "mongoose": "^5.0.15",
     "path": "^0.12.7",
+    "pg": "^7.4.1",
+    "postgres-import-json": "^1.0.2",
     "react": "^16.3.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.1",
@@ -29,20 +31,31 @@
   },
   "devDependencies": {
     "webpack": "^3.11.0",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-config-airbnb-base": "^12.1.0"
   },
   "scripts": {
     "start": "node ./server/index.js",
     "start:watch": "nodemon ./server/index.js",
-    "seed": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file fullList.json --numInsertionWorkers 8",
+    "seed:mongo": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file smallList.json --numInsertionWorkers 8",
+    "seed:postgres": "psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seedCSVPostgres.sql",
     "build": "webpack -d --watch",
     "build:prod": "webpack -p",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "docker": "npm run build:prod && npm run seed && npm start",
-    "generate": "node createDummyData.js",
-    "fix": "truncate -s -1 fullList.json && echo ] >> fullList.json"
+    "generate:json": "node createJSONDummyData.js",
+    "generate:csv": "node createCSVDummyData.js",
+    "fix": "truncate -s -1 fullList.json && echo ] >> fullList.json",
+    "fix:small": "truncate -s -1 smallList.json && echo ] >> smallList.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",

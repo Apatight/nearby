@@ -1,0 +1,123 @@
+
+for JSON
+psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seedPostgres.sql
+
+for CSV
+psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seedCSVPostgres.sql
+
+ADD INDEX TO MONGO
+db.restaurants.createIndex({place_id:1})
+
+SEED CSV FILE INTO POSTFGRES
+psql -U oliverhan apateez_nearby -c "COPY apateez_nearby FROM '/Users/oliverhan/dev/system-design-capstone/nearby/dataList.csv' delimiter ',' csv;"
+
+
+CREATE TABLE apateez_nearby (
+    "place_id" int,
+    "name" text,
+    "google_rating" int,
+    "zagat_rating" int,
+    "photos" text[],
+    "neighborhood" text,
+    "price_level" int,
+    "types" text,
+    "nearby" int[],
+    PRIMARY KEY ("place_id")
+);
+
+
+CREATE TABLE "public"."apateez_nearby" (
+    "place_id" int,
+    "name" text,
+    "google_rating" int,
+    "zagat_rating" int,
+    "photos" text[],
+    "neighborhood" text,
+    "price_level" int,
+    "types" text,
+    "nearby" int[],
+    PRIMARY KEY ("place_id")
+);
+
+CREATE TABLE apateez_nearby (
+    "name" text,
+    "place_id" text,
+    "google_rating" int,
+    "zagat_rating" int,
+    "photos" text[],
+    "neighborhood" text,
+    "price_level" int,
+    "types" text,
+    "nearby" int[],
+    PRIMARY KEY ("place_id")
+);
+
+CREATE TABLE apateez_nearby (
+    "name" text,
+    "place_id" text,
+    "google_rating" int,
+    "zagat_rating" int,
+    "photos" text,
+    "neighborhood" text,
+    "price_level" int,
+    "types" text,
+    "nearby" int[],
+    PRIMARY KEY ("place_id")
+);
+
+CREATE TABLE apateez_nearby (
+    "name" text,
+    "place_id" text,
+    "google_rating" text,
+    "zagat_rating" text,
+    "photos" text,
+    "neighborhood" text,
+    "price_level" text,
+    "types" text,
+    "nearby" text,
+    PRIMARY KEY ("place_id")
+);
+
+
+
+CREATE temporary TABLE "temp_json" (
+    "id" serial,
+    "name" text,
+    "place_id" int,
+    "google_rating" int,
+    "zagat_rating" int,
+    "photos" text[],
+    "neighborhood" text,
+    "price_level" int,
+    "types" text,
+    "nearby" int[],
+    PRIMARY KEY ("id")
+) on commit drop;
+
+
+
+select values->>'name' as name,
+       values->>'place_id' as place_id,
+       CAST(values->>'google_rating' AS integer) AS google_rating,
+       CAST(values->>'zagat_rating' AS integer) AS zagat_rating,
+       CAST(values->>'photos' AS text) AS photos,
+       values->>'neighborhood' as neighborhood,
+       CAST(values->>'price_level' AS integer) AS price_level,
+       values->>'types' as types,
+       CAST(values->>'nearby' AS int[]) AS nearby
+
+       from   (
+                  select json_array_elements(replace(values,'\','\\')::json) as values
+                  from   temp_json
+              ) a;
+
+
+       select values->>'name' as name,
+              values->>'place_id' as place_id,
+              values->>'google_rating' AS google_rating,
+              values->>'zagat_rating' AS zagat_rating,
+              values->>'photos' AS photos,
+              values->>'neighborhood' as neighborhood,
+              values->>'price_level' AS price_level,
+              values->>'types' AS types,
+              values->>'nearby' AS nearby

@@ -2,8 +2,9 @@ const fs = require('fs');
 const faker = require('faker');
 const photoRefs = require('./allPhotoRef.json')
 
+const fileName = 'dataList.json'
 const entryNum = 10000000;
-// const entryNum = 1000; // For test
+// const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array
@@ -13,12 +14,12 @@ const createEntry = (count) => {
   }
   // Create nearby array
   let nearbyArr = [];
-  for (var j = 0; j < 6; j++) {
+  for (let j = 0; j < 6; j++) {
     nearbyArr.push(Math.floor(Math.random()*entryNum))
   }
   let obj = {
+    place_id: ${count},
     name: faker.name.findName(),
-    place_id: `${count}`,
     google_rating: Math.floor(Math.random() * 5.95),
     zagat_rating: Math.floor(Math.random() * 5.95),
     photos: photosArr,
@@ -31,15 +32,16 @@ const createEntry = (count) => {
 }
 
 
+
 let generateJSON = () => {
   let options = {
     autoClose: true
   };
 
-  let writeStream = fs.createWriteStream('fullList.json', options);
+  let writeStream = fs.createWriteStream(fileName, options);
   let i = 0;
   let write = function() {
-    var ok = true;
+    let ok = true;
     do {
       i++;
       if (i === 1) {
@@ -56,6 +58,9 @@ let generateJSON = () => {
 }
 
 generateJSON();
+
+
+
 
 // Run after
 // truncate -s -1 fullList2.json

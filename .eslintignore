@@ -1,0 +1,9 @@
+.eslint*
+**/webpack.config.js
+**/bundle.js
+**/node_modules
+**/public
+**/coverage
+**/tests
+**/createPhotos.js
+**/createDummyData.js
