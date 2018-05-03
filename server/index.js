@@ -1,10 +1,10 @@
 const express = require('express');
-
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const mongodb = require('../db/mongodb.js');
-// const postgresdb = require('../db/postgresdb.js');
+const PORT = process.env.PORT || 3004;
+
+const db = require('../db/postgresdb.js');
 
 app.use(bodyParser.json());
 
@@ -20,39 +20,29 @@ app.get('/restaurants/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-app.get('/api/restaurants/:id/nearby', (req, res) => {
-  // console.log('app got')
+app.get('/api/restaurants/:id/nearby', (req, res, next) => {
   const placeId = req.params.id;
-  // console.log("req.params.id " + req.params.id);
-  // find recommended restaurants based on id
-  const results = [];
-  mongodb.findOne(placeId, (err, data) => {
-    if (err) {
-      res.status(500);
-      throw err;
-    } else {
-      // console.log('restaurant info: ', data);
-      // const nearbyArr = data[0].nearby;
-      // console.log('Nearby Arr: ', nearbyArr);
-      results.push(data[0]);
+  let results = [];
+  db.findOne(placeId)
+  .then((data) => {
+    results.push(data[0]);
+    // console.log('data[0].nearby', data[0].nearby);
+    db.findMany(data[0].nearby)
+    .then((nearbyData) => {
+      // console.log('nearbyData', nearbyData.length);
+      results.push(nearbyData);
+      res.status(200);
+      res.send(results);
+    })
+    .catch((err) => {
+      return next(err);
+    })
+  })
+  .catch((err) => {
+    return next(err);
+  })
+})
 
-      mongodb.findMany(data[0].nearby, (dbErr, content) => {
-        if (dbErr) {
-          res.status(500);
-          throw (dbErr);
-        } else {
-          // console.log('recommended restaurants:', content);
-          results.push(content);
-          // console.log(`number of recommended: ${content.length}`);
-          res.status(200);
-          // console.log('Results Length: ', results.length);
-          res.send(results);
-        }
-      });
-    }
-  });
-});
-
-app.listen(3004, () => {
-  // console.log('Apateez app listening on port 3004!');
+app.listen(PORT, () => {
+  console.log('connected to port:', PORT)
 });
