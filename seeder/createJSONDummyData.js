@@ -3,7 +3,7 @@ const faker = require('faker');
 const photoRefs = require('./allPhotoRef.json')
 
 const fileName = 'dataList.json'
-const entryNum = 10000000;
+const entryNum = 10000000; // For prod
 // const entryNum = 100; // For test
 
 const createEntry = (count) => {
@@ -18,7 +18,7 @@ const createEntry = (count) => {
     nearbyArr.push(Math.floor(Math.random()*entryNum))
   }
   let obj = {
-    place_id: ${count},
+    place_id: count,
     name: faker.name.findName(),
     google_rating: Math.floor(Math.random() * 5.95),
     zagat_rating: Math.floor(Math.random() * 5.95),
@@ -58,11 +58,3 @@ let generateJSON = () => {
 }
 
 generateJSON();
-
-
-
-
-// Run after
-// truncate -s -1 fullList2.json
-// echo ] >> fullList2.json
-// mongoimport --jsonArray -d apateez-nearby -c restaurants --file fullList.json --numInsertionWorkers 8

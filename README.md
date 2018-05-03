@@ -1,6 +1,6 @@
 # Project Name
-
-> Project description
+Apatight
+> - Nearby Component Stress Testing and Benchmark
 
 ## Related Projects
 
@@ -17,7 +17,13 @@
 
 ## Usage
 
-> Some usage instructions
+Seeding database with MongoDB
+>  npm run generate:json
+>  npm run seed:mongo
+
+Using Postgres
+>  npm run generage:csv
+>  npm run seed:postgres
 
 ## Requirements
 
@@ -36,4 +42,3 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
-

@@ -20,6 +20,7 @@ const createPhotosJSON = (array) => {
 // createPhotosJSON(AllData);
 let results = createPhotosJSON(AllData);
 
+
 fs.appendFileSync('./allPhotoRef.json', JSON.stringify(results), function (err) {
   if (err) throw err;
   console.log('Saved!');

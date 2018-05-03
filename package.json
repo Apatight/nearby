@@ -1,7 +1,33 @@
 {
   "name": "nearby",
   "version": "1.0.0",
-  "description": "apateez-nearby",
+  "description": "apatight-nearby",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Apatight/nearby.git"
+  },
+  "author": "Oliver Han",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Apatight/nearby/issues"
+  },
+  "scripts": {
+    "start": "node ./server/index.js",
+    "start:watch": "nodemon ./server/index.js",
+    "seed:mongo": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file dataList.json --numInsertionWorkers 16",
+    "seed:postgres": "psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seeder/seedCSVPostgres.sql",
+    "build": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "docker": "npm run build:prod && npm start",
+    "generate:json": "node seeder/createJSONDummyData.js",
+    "generate:csv": "node seeder/createCSVDummyData.js",
+    "fix": "truncate -s -1 dataList.json && echo ] >> dataList.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.0",
@@ -22,7 +48,6 @@
     "mongoose": "^5.0.15",
     "path": "^0.12.7",
     "pg": "^7.4.1",
-    "postgres-import-json": "^1.0.2",
     "react": "^16.3.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.1",
@@ -39,38 +64,12 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint-config-airbnb-base": "^12.1.0"
   },
-  "scripts": {
-    "start": "node ./server/index.js",
-    "start:watch": "nodemon ./server/index.js",
-    "seed:mongo": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file smallList.json --numInsertionWorkers 8",
-    "seed:postgres": "psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seedCSVPostgres.sql",
-    "build": "webpack -d --watch",
-    "build:prod": "webpack -p",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "docker": "npm run build:prod && npm run seed && npm start",
-    "generate:json": "node createJSONDummyData.js",
-    "generate:csv": "node createCSVDummyData.js",
-    "fix": "truncate -s -1 fullList.json && echo ] >> fullList.json",
-    "fix:small": "truncate -s -1 smallList.json && echo ] >> smallList.json",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Apatight/nearby.git"
-  },
-  "author": "Oliver Han",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Apatight/nearby/issues"
-  },
   "jest": {
     "globals": {
-      "BASE_URL": "http://127.0.0.1:3000"
+      "BASE_URL": "http://127.0.0.1:3004",
+      "IMAGE_URL": "https://s3-us-west-1.amazonaws.com/apateez"
     },
-    "setupTestFrameworkScriptFile": "<rootDir>/client/src/components/TestSetup.js"
+    "setupTestFrameworkScriptFile": "<rootDir>/tests/TestSetup.js"
   },
   "homepage": "https://github.com/Apatight/nearby#readme"
 }

@@ -35,7 +35,7 @@ class RestaurantDetails extends React.Component {
         </div>
 
         <div className="restaurant-details-ratings">
-          <img className="apateez-logo-small" src="https://s3-us-west-1.amazonaws.com/apateezassets/apateez-logo-small-red.jpeg" /> <span className="restaurant-details-ratings-zagat-rated">FOOD</span> <span className="restaurant-details-ratings-zagat-rated-value">{this.props.nearbyRestaurant.zagat_rating}</span> 
+          <img className="apateez-logo-small" src="https://s3-us-west-1.amazonaws.com/apateezassets/apateez-logo-small-red.jpeg" /> <span className="restaurant-details-ratings-zagat-rated">FOOD</span> <span className="restaurant-details-ratings-zagat-rated-value">{this.props.nearbyRestaurant.zagat_rating}</span>
           <span className="pipeline">|</span>
           <img className="google-logo-small" src="https://s3-us-west-1.amazonaws.com/apateezassets/google-logo-icon.png" /><span className="restaurant-details-ratings-google-rating">{this.props.nearbyRestaurant.google_rating}</span>
           <div className="restaurant-details-ratings-stars">
@@ -47,7 +47,7 @@ class RestaurantDetails extends React.Component {
 
         <div className="restaurant-details-description">
           {faker.lorem.sentence()}
-        </div>        
+        </div>
 
 			</div>
 		)

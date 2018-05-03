@@ -2,23 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../db/mongodb.js');
-const mongoose = require('mongoose');
-
-var mongoUrlDocker = 'mongodb://database/apateez-nearby';
-var mongoUrl = 'mongodb://localhost/apateez-nearby';
-
-mongoose.connect(mongoUrl);
-// mongoose.connect(mongoUrlDocker);
-
-mongoose.connection.on('connected', function() {
-  console.log(`Mongoose connection open on ${mongoUrl}`)
-});
-
-mongoose.connection.on('error',function (err) {
-  console.log('Mongoose default connection error: ' + err);
-  mongoose.connect(mongoUrlDocker)
-});
+const mongodb = require('../db/mongodb.js');
+const postgresdb = require('../db/postgresdb.js');
 
 app.use(bodyParser.json());
 
@@ -35,12 +20,12 @@ app.get('/restaurants/:id', function(req, res) {
 });
 
 app.get('/api/restaurants/:id/nearby', function(req, res) {
-  console.log('app got')
+  // console.log('app got')
 	var placeId = req.params.id;
-  console.log("GET " + req.url);
+  // console.log("req.params.id " + req.params.id);
   // find recommended restaurants based on id
   var results = [];
-  db.findOne(placeId, (err, data) => {
+  mongodb.findOne(placeId, (err, data) => {
     if (err) {
       res.status(500);
       console.log(err);
@@ -50,7 +35,7 @@ app.get('/api/restaurants/:id/nearby', function(req, res) {
       console.log('Nearby Arr: ', nearbyArr);
       results.push(data[0]);
 
-      db.findMany(nearbyArr, (err, data)=> {
+      mongodb.findMany(nearbyArr, (err, data)=> {
         if(err) {
           res.status(500);
           console.log(err);
