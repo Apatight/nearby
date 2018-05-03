@@ -1,5 +1,5 @@
-# Project Name
-Apatight
+# Apatight - The Journey to 10K RPS
+
 > - Nearby Component Stress Testing and Benchmark
 
 ## Related Projects
