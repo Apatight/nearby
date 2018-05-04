@@ -12,6 +12,10 @@ SEED CSV FILE INTO POSTFGRES
 psql -U oliverhan apateez_nearby -c "COPY apateez_nearby FROM '/Users/oliverhan/dev/system-design-capstone/nearby/dataList.csv' delimiter ',' csv;"
 
 
+QUERY COMMANDS
+SELECT photos[5] FROM nearby WHERE place_id = 1000;
+
+
 CREATE TABLE apateez_nearby (
     "place_id" int,
     "name" text,

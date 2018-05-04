@@ -30,7 +30,7 @@ class App extends React.Component {
     if (window.location.href.split('/')[4] !== undefined) {
 			axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
 			.then(({data}) => {
-				console.log('axios got')
+				console.log('axios got', data )
 				this.setState({
 					currentRestaurant: data[0],
 					nearbyRestaurants: data[1]

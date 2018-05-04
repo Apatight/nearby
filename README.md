@@ -1,13 +1,13 @@
-# Apatight - The Journey to 10K RPS
+# Apatight -
 
-> - Nearby Component Stress Testing and Benchmark
+> The Journey to 10K RPS
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/Apatight/reviews
+  - https://github.com/Apatight/sidebar
+  - https://github.com/Apatight/gallery
+  - https://github.com/Apatight/proxy
 
 ## Table of Contents
 
@@ -18,21 +18,26 @@
 ## Usage
 
 Seeding database with MongoDB
->  npm run generate:json
->  npm run seed:mongo
+```sh
+npm run generage:csv
+npm run seed:postgres
+```
 
-Using Postgres
->  npm run generage:csv
->  npm run seed:postgres
+Seeding database with Postgres
+```sh
+npm run generage:json
+npm run seed:mongo
+```
+
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
-- Node 6.13.0
-- etc
+- Node > 6.13.0
 
 ## Development
+
 
 ### Installing Dependencies
 
