@@ -24,13 +24,13 @@ class App extends React.Component {
     // console.log('window location.href: ', window.location.href);
 
     var id = window.location.href.split('/')[4];
-    console.log('getting recommended restaurants for id: ' + id)
+    // console.log('getting recommended restaurants for id: ' + id)
 
     //error handling if id is included in URL
     if (window.location.href.split('/')[4] !== undefined) {
 			axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
 			.then(({data}) => {
-				console.log('axios got', data )
+				// console.log('axios got', data )
 				this.setState({
 					currentRestaurant: data[0],
 					nearbyRestaurants: data[1]
