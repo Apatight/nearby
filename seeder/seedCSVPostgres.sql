@@ -1,7 +1,7 @@
 
-\CONNECT apateez_nearby;
+\connect apateez_nearby;
 
-DROP TABLE IF EXISTS apateez_nearby;
+DROP TABLE IF EXISTS nearby;
 
 CREATE TABLE apateez_nearby (
     "place_id" int,

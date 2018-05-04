@@ -6,6 +6,8 @@ npm
 npm-debug.log
 node_modules/
 
+## OUT OF DATE FILES ##
+*.rdb
 
 ## Data Files ##
 dataList.json
@@ -13,7 +15,7 @@ dataList.csv
 allPhotoRef.json
 
 ## Old Seeder ##
-seed.js
+/seeder/seed.js
 
 ## Webpack bundle ##
 /client/dist/bundle.js

@@ -4,11 +4,9 @@ const mongoUrlDocker = 'mongodb://database/apateez-nearby';
 const mongoUrl = 'mongodb://localhost/apateez-nearby';
 
 mongoose.connect(mongoUrl); // Try localhost first
-
 mongoose.connection.on('connected', () => {
   // console.log('Mongoose connection open');
 });
-
 mongoose.connection.on('error', () => {
   // console.log(`Mongoose default connection error: ${err}`);
   mongoose.connect(mongoUrlDocker);
@@ -29,10 +27,10 @@ const restaurantSchema = mongoose.Schema({
 const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
 // findAll retrieves all stories
-const findAll = (callback) => {
-  // console.log('finding all!');
-  RestaurantModel.find({}, callback);
-};
+// const findAll = (callback) => {
+//   // console.log('finding all!');
+//   RestaurantModel.find({}, callback);
+// };
 
 // findOne will retrieve the restaurant associated with the given id
 const findOne = (id, callback) => {
@@ -55,9 +53,12 @@ const clearDb = (cb) => {
   RestaurantModel.remove({}, cb);
 };
 
-exports.RestaurantModel = RestaurantModel;
-exports.findOne = findOne;
-exports.findAll = findAll;
-exports.insertOne = insertOne;
-exports.findMany = findMany;
-exports.clearDb = clearDb;
+
+module.exports = {
+  RestaurantModel : RestaurantModel,
+  findOne : findOne,
+  findAll : findAll,
+  insertOne : insertOne,
+  findMany : findMany,
+  clearDb : clearDb
+};
