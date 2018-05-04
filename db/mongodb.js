@@ -35,18 +35,18 @@ const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
 // findOne will retrieve the restaurant associated with the given id
 const findOne = (id, callback) => {
   // console.log("find " + id);
-  RestaurantModel.find({ place_id: id }, callback);
+  return RestaurantModel.find({ place_id: id });
 };
 
 // insertOne inserts a restaurant into the db
 const insertOne = (restaurant, callback) => {
-  RestaurantModel.create(restaurant, callback);
+  return RestaurantModel.create(restaurant);
 };
 
 // retrieve many restaurants
 const findMany = (ids, callback) => {
   // console.log('find 6 nearby restaurants');
-  RestaurantModel.find({ place_id: { $in: ids } }, callback);
+  return RestaurantModel.find({ place_id: { $in: ids } });
 };
 
 const clearDb = (cb) => {
@@ -57,7 +57,6 @@ const clearDb = (cb) => {
 module.exports = {
   RestaurantModel : RestaurantModel,
   findOne : findOne,
-  findAll : findAll,
   insertOne : insertOne,
   findMany : findMany,
   clearDb : clearDb

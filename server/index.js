@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const PORT = process.env.PORT || 3004;
+// const PORT = process.env.PORT || 3004;
+const PORT = 3004;
 
 const db = require('../db/postgresdb.js');
+// const db = require('../db/mongodb.js');
 
 app.use(bodyParser.json());
 
@@ -23,6 +25,7 @@ app.get('/restaurants/:id', (req, res) => {
 app.get('/api/restaurants/:id/nearby', (req, res, next) => {
   const placeId = req.params.id;
   let results = [];
+  // console.log('hello')
   db.findOne(placeId)
   .then((data) => {
     results.push(data[0]);
@@ -44,5 +47,5 @@ app.get('/api/restaurants/:id/nearby', (req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log('connected to port:', PORT)
+  // console.log('connected to port:', PORT)
 });
