@@ -1,0 +1,5 @@
+# DATA FILES
+*/dump.rdb
+*/dataList*
+node_modules
+.circleci

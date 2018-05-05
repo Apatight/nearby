@@ -1,10 +1,10 @@
 const fs = require('fs');
 const faker = require('faker');
-const photoRefs = require('./allPhotoRef.json');
+const photoRefs = require('../allPhotoRef.json');
 
 const fileName = 'dataList.json';
-const entryNum = 10000000; // For prod
-// const entryNum = 100; // For test
+// const entryNum = 10000000; // For prod
+const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array
@@ -44,13 +44,15 @@ const generateJSON = () => {
     do {
       i += 1;
       if (i === 1) {
-        writeStream.write(`[${JSON.stringify(createEntry(i))},`);
+        writeStream.write(`[${JSON.stringify(createEntry(i))}`);
       } else {
-        ok = writeStream.write(`${JSON.stringify(createEntry(i))},`);
+        ok = writeStream.write(`,${JSON.stringify(createEntry(i))}`);
       }
     } while (i < entryNum && ok);
     if (i < entryNum) {
       writeStream.once('drain', write);
+    } else {
+      writeStream.write(']');
     }
   };
   write();

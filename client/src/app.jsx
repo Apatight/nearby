@@ -28,7 +28,8 @@ class App extends React.Component {
 
     //error handling if id is included in URL
     if (window.location.href.split('/')[4] !== undefined) {
-			axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
+			axios.get(`/api/restaurants/${id}/nearby`)
+			// axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
 			.then(({data}) => {
 				// console.log('axios got', data )
 				this.setState({
