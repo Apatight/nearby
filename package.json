@@ -15,7 +15,7 @@
     "start": "node ./server/index.js",
     "start:watch": "nodemon ./server/index.js",
     "seed:mongo": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file dataList.json --numInsertionWorkers 16",
-    "seed:postgres": "psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seeder/seedCSVPostgres.sql",
+    "seed:postgres": "psql -U oliverhan apateez -f /Users/oliverhan/dev/system-design-capstone/nearby/seeder/seedCSVPostgres.sql",
     "build": "webpack -d --watch",
     "build:prod": "webpack -p",
     "test": "jest",
@@ -26,7 +26,8 @@
     "generate:csv": "node seeder/createCSVDummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "docker": "npm run build:prod && npm run generate:json"
+    "docker": "npm run build:prod && npm run generate:json",
+    "artillery": "artillery run ./.benchmark/hello.yml"
   },
   "dependencies": {
     "axios": "^0.18.0",

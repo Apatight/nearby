@@ -5,8 +5,8 @@ const path = require('path');
 // const PORT = process.env.PORT || 3004;
 const PORT = 3004;
 
-// const db = require('../db/postgresdb.js');
-const db = require('../db/mongodb.js');
+const db = require('../db/postgresdb.js');
+// const db = require('../db/mongodb.js');
 
 app.use(bodyParser.json());
 

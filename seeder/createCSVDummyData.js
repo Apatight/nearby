@@ -1,11 +1,11 @@
 const fs = require('fs');
 const faker = require('faker');
-const photoRefs = require('./allPhotoRef.json');
+const photoRefs = require('../allPhotoRef.json');
 
 const fileName = 'dataList.csv';
 
-const entryNum = 10000000; // For production
-// const entryNum = 100; // For test
+// const entryNum = 10000000; // For production
+const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array

@@ -1,9 +1,10 @@
+CREATE DATABASE apateez IF NOT EXISTS;
 
-\connect apateez_nearby;
+\connect apateez;
 
 DROP TABLE IF EXISTS nearby;
 
-CREATE TABLE apateez_nearby (
+CREATE TABLE nearby (
     "place_id" int,
     "name" text,
     "google_rating" int,
@@ -16,5 +17,7 @@ CREATE TABLE apateez_nearby (
     PRIMARY KEY ("place_id")
 );
 
-COPY apateez_nearby
-FROM '/Users/oliverhan/dev/system-design-capstone/nearby/dataList.csv' DELIMITER ',' csv;
+-- \COPY nearby
+-- FROM '/Users/oliverhan/dev/system-design-capstone/nearby/dataList.csv' DELIMITER ',' csv;
+
+\COPY nearby FROM './dataList.csv' DELIMITER ',' csv

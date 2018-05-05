@@ -4,9 +4,12 @@ services:
     nearby:
       build: .
       depends_on:
-        - 'mongodb'
+        - 'database'
       ports:
         - '3004:3004'
 
-    mongodb:
-      image: mongo:latest
+    database:
+      image: postgres:latest
+
+    # mongodb:
+    #   image: mongo:latest

@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const mongoUrlDocker = 'mongodb://mongodb/apateez-nearby';
 const mongoUrl = 'mongodb://localhost/apateez-nearby';
 
-// mongoose.connect(mongoUrl); // Try localhost first
-mongoose.connect(mongoUrlDocker); // Try localhost first
+mongoose.connect(mongoUrl); // Try localhost first
+// mongoose.connect(mongoUrlDocker); // Try localhost first
 mongoose.connection.on('connected', () => {
   // console.log('Mongoose connection open');
 });
