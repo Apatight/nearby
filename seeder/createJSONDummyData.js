@@ -3,8 +3,8 @@ const faker = require('faker');
 const photoRefs = require('../allPhotoRef.json');
 
 const fileName = 'dataList.json';
-// const entryNum = 10000000; // For prod
-const entryNum = 100; // For test
+const entryNum = 10000000; // For prod
+// const entryNum = 100; // For test
 
 const createEntry = (count) => {
   // Create one photo array

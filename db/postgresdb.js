@@ -9,6 +9,9 @@ const postgresql = pgp(connectionString);
 
 const findOneQuery = 'SELECT * FROM nearby WHERE place_id = $1';
 const findOne = id => postgresql.any(findOneQuery, id);
+require('newrelic');
+const newrelic = require('newrelic');
+
 
 // const findManyQuery = `select * FROM nearby WHERE place_id = ANY ('{$1,$2,$3,$4,$5,$6}'::int[]);`
 const findManyQuery = 'select * FROM nearby WHERE place_id IN ($1:list);';
