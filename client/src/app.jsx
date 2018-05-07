@@ -33,8 +33,10 @@ class App extends React.Component {
 			.then(({data}) => {
 				// console.log('axios got', data )
 				this.setState({
-					currentRestaurant: data[0],
-					nearbyRestaurants: data[1]
+					currentRestaurant: data.restaurant,
+					nearbyRestaurants: data.nearby,
+					// currentRestaurant: data[0],
+					// nearbyRestaurants: data[1]
 				})
 			})
 			.catch((err) => {

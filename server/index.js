@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-// const PORT = process.env.PORT || 3004;
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 
 const db = require('../db/postgresdb.js');
 // const db = require('../db/mongodb.js');
+
+// Redis
+const redis = require('redis');
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient(REDIS_PORT);
 
 app.use(bodyParser.json());
 
@@ -24,25 +28,30 @@ app.get('/restaurants/:id', (req, res) => {
 
 app.get('/api/restaurants/:id/nearby', (req, res, next) => {
   const placeId = req.params.id;
-  let results = [];
-  // console.log('hello')
-  db.findOne(placeId)
-  .then((data) => {
-    results.push(data[0]);
-    // console.log('data[0].nearby', data[0].nearby);
-    db.findMany(data[0].nearby)
-    .then((nearbyData) => {
-      // console.log('nearbyData', nearbyData.length);
-      results.push(nearbyData);
+  client.get(placeId, function(error, result) {
+    if (result) {
       res.status(200);
-      res.send(results);
-    })
-    .catch((err) => {
-      return next(err);
-    })
-  })
-  .catch((err) => {
-    return next(err);
+      res.send(result);
+    } else {
+      let results = {};
+      db.findOne(placeId)
+      .then((data) => {
+        results.restaurant = data[0];
+        db.findMany(data[0].nearby)
+        .then((nearbyData) => {
+          results.nearby = nearbyData
+          client.setex(placeId, 60, JSON.stringify(results));
+          res.status(200);
+          res.send(results);
+        })
+        .catch((err) => {
+          throw err;
+        })
+      })
+      .catch((err) => {
+        throw err;
+      }
+    }
   })
 })
 
