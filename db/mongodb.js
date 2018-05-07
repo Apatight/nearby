@@ -43,9 +43,7 @@ const findOne = (id, callback) =>
 const insertOne = (restaurant, callback) => RestaurantModel.create(restaurant);
 
 // retrieve many restaurants
-const findMany = (ids, callback) =>
-  // console.log('find 6 nearby restaurants');
-  RestaurantModel.find({ place_id: { $in: ids } });
+const findMany = (ids, callback) => RestaurantModel.find({ place_id: { $in: ids } });
 const clearDb = (cb) => {
   RestaurantModel.remove({}, cb);
 };
