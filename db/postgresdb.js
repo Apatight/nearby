@@ -2,8 +2,8 @@ const promise = require('bluebird');
 const options = { promiseLib: promise };
 const pgp = require('pg-promise')(options);
 
-const connectionString = 'postgres://localhost:5432/apateez';
-// const connectionString = 'postgres://postgres:postgres@database:5432/apateez'; //for docker
+// const connectionString = 'postgres://localhost:5432/apateez';
+const connectionString = 'postgres://postgres:postgres@database:5432/apateez'; //for docker
 const postgresql = pgp(connectionString);
 
 const findOneQuery = 'SELECT * FROM nearby WHERE place_id = $1';

@@ -9,7 +9,10 @@ services:
         - '3004:3004'
 
     database:
-      image: postgres:latest
+      image: postgres:9.6.2-alpine
+      environment:
+        POSTGRES_USER: oliverhan
+        POSTGRES_DB: apateez
 
     # mongodb:
     #   image: mongo:latest
