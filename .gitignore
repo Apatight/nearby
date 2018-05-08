@@ -6,6 +6,9 @@ npm
 npm-debug.log
 node_modules/
 
+## CONFIG FILES ##
+newrelic.js
+
 ## OUT OF DATE FILES ##
 *.rdb
 

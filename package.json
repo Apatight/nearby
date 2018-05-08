@@ -16,8 +16,8 @@
     "start:watch": "nodemon ./server/index.js",
     "seed:mongo": "mongoimport --jsonArray -d apateez-nearby -c restaurants --file dataList.json --numInsertionWorkers 16",
     "seed:postgres": "psql -U oliverhan apateez -f /Users/oliverhan/dev/system-design-capstone/nearby/seeder/seedCSVPostgres.sql",
-    "build": "webpack -d --watch",
-    "build:prod": "webpack -p",
+    "build:dev": "webpack -d --watch",
+    "build": "webpack -p",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -26,8 +26,8 @@
     "generate:csv": "node seeder/createCSVDummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "docker:mongo": "npm run build:prod && npm run generate:json",
-    "docker:postgres": "npm run build:prod && npm run generate:csv && npm run seed:postgres && npm run start",
+    "docker:mongo": "npm run build && npm run generate:json",
+    "docker:postgres": "npm run build && npm run generate:csv && npm run seed:postgres && npm run start",
     "artillery": "artillery run ./.benchmark/hello.yml"
   },
   "dependencies": {
@@ -49,6 +49,7 @@
     "jest": "^22.4.3",
     "jquery": "^3.3.1",
     "mongoose": "^5.0.15",
+    "newrelic": "^4.1.0",
     "p": "^0.2.0",
     "path": "^0.12.7",
     "pg": "^7.4.1",
@@ -57,6 +58,8 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.2",
+    "redis": "^2.8.0",
+    "response-time": "^2.3.2",
     "style-loader": "^0.20.3"
   },
   "devDependencies": {

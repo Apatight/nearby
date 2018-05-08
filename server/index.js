@@ -1,12 +1,20 @@
+const newrelic = require('newrelic');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-// const PORT = process.env.PORT || 3004;
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 
-const db = require('../db/postgresdb.js');
-// const db = require('../db/mongodb.js');
+
+const db = require('../db/postgresdb.js'); // For Postgres
+// const db = require('../db/mongodb.js'); // For Mongo
+
+// Redis
+const redis = require('redis');
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient(REDIS_PORT);
+
+//Create a middleware that adds a X-Response-Time header to responses.
 
 app.use(bodyParser.json());
 
@@ -22,29 +30,67 @@ app.get('/restaurants/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-app.get('/api/restaurants/:id/nearby', (req, res, next) => {
-  const placeId = req.params.id;
-  let results = [];
-  // console.log('hello')
+// Postgres only
+// app.get('/api/restaurants/:id/nearby', (req, res, next) => {
+//   const placeId = req.params.id;
+//   const results = {};
+//   db.findOne(placeId)
+//   .then((data) => {
+//     results.restaurant = data[0];
+//     db.findMany(data[0].nearby)
+//     .then((nearbyData) => {
+//       results.nearby = nearbyData
+//       // client.setex(placeId, 60, JSON.stringify(results));
+//       client.setnx(placeId, JSON.stringify(results));
+//       res.status(200);
+//       res.send(results);
+//     })
+//     .catch((err) => {
+//       throw err;
+//     })
+//   })
+//   .catch((err) => {
+//     throw err;
+//   })
+// })
+
+// Redis
+const getRestaurant  = (req, res) => {
+  let placeId = req.params.id;
+  const results = {};
   db.findOne(placeId)
   .then((data) => {
-    results.push(data[0]);
-    // console.log('data[0].nearby', data[0].nearby);
+    results.restaurant = data[0];
     db.findMany(data[0].nearby)
     .then((nearbyData) => {
-      // console.log('nearbyData', nearbyData.length);
-      results.push(nearbyData);
+      results.nearby = nearbyData
+      // client.setex(placeId, 60, JSON.stringify(results));
+      client.setex(placeId, 300, JSON.stringify(results));
       res.status(200);
       res.send(results);
     })
     .catch((err) => {
-      return next(err);
+      throw err;
     })
   })
   .catch((err) => {
-    return next(err);
+    throw err;
   })
-})
+}
+
+const getCache = (req, res) => {
+  let placeId = req.params.id;
+  client.get(placeId, (err, result) => {
+    if (result) {
+      res.status(200);
+      res.send(result);
+    } else {
+      getRestaurant(req, res);
+    }
+  });
+}
+
+app.get('/api/restaurants/:id/nearby', getCache);
 
 app.listen(PORT, () => {
   // console.log('connected to port:', PORT)
