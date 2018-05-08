@@ -1,11 +1,14 @@
-const newrelic = require('newrelic');
+require('newrelic');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 3004;
+// const http = require('http');
+// http.globalAgent.maxSockets = 50;
 
-
+// Trying compression
+const compression = require('compression')
 const db = require('../db/postgresdb.js'); // For Postgres
 // const db = require('../db/mongodb.js'); // For Mongo
 
@@ -14,8 +17,12 @@ const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const client = redis.createClient(REDIS_PORT);
 
-//Create a middleware that adds a X-Response-Time header to responses.
+// Trying compression
+app.use(compression({
+ filter: function () { return true; },
+}));
 
+//Create a middleware that adds a X-Response-Time header to responses.
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -65,7 +72,7 @@ const getRestaurant  = (req, res) => {
     .then((nearbyData) => {
       results.nearby = nearbyData
       // client.setex(placeId, 60, JSON.stringify(results));
-      client.setex(placeId, 300, JSON.stringify(results));
+      client.setex(placeId, 60*60, JSON.stringify(results));
       res.status(200);
       res.send(results);
     })
@@ -78,7 +85,7 @@ const getRestaurant  = (req, res) => {
   })
 }
 
-const getCache = (req, res) => {
+const getCache = (req, res, next) => {
   let placeId = req.params.id;
   client.get(placeId, (err, result) => {
     if (result) {
