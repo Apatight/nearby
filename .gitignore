@@ -6,6 +6,14 @@ npm
 npm-debug.log
 node_modules/
 
+## BENCHMARK ##
+.ipynb_checkpoints
+Apatight_nearby.ipynb
+results.bin
+results.json
+plot.html
+
+
 ## CONFIG FILES ##
 newrelic.js
 

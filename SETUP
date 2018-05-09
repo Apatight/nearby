@@ -12,9 +12,38 @@ SEED CSV FILE INTO POSTFGRES
 psql -U oliverhan apateez_nearby -c "COPY apateez_nearby FROM '/Users/oliverhan/dev/system-design-capstone/nearby/dataList.csv' delimiter ',' csv;"
 
 
+VEGETA
+for rate in $(seq 100 5 300); do     vegeta attack -duration=60s -rate $rate -targets targets.txt |     vegeta dump -dumper csv |
+   sed "s/$/,$rate/" >> results.csv; done
+
+vegeta attack -duration=60s -rate=700 -targets targets.txt |     vegeta dump -dumper json |
+   sed "s/$/,300/" >> results.json
+
+
+ONE GRAPHING
+echo "GET http://localhost:3004/api/restaurants/99/nearby" | vegeta attack -duration=30s -rate=300 | tee results.bin | vegeta report
+  vegeta attack -duration=30s -rate=300 -targets=targets.txt > results.bin
+  vegeta report -inputs=results.bin -reporter=json > metrics.json
+  cat results.bin | vegeta report -reporter=plot > plot.html
+  cat results.bin | vegeta report -reporter="hist[0,100ms,200ms,300ms]"
+
+LIVE GRAPHING in iterm
+echo 'GET http://localhost:3004/api/restaurants/99/nearby' | \
+    vegeta attack -rate 500 -duration 1m | vegeta dump | \
+    jaggr @count=rps \
+          hist\[100,200,300,400,500\]:code \
+          p25,p50,p95:latency \
+          sum:bytes_in \
+          sum:bytes_out | \
+    jplot rps+code.hist.100+code.hist.200+code.hist.300+code.hist.400+code.hist.500 \
+          latency.p95+latency.p50+latency.p25 \
+          bytes_in.sum+bytes_out.sum
+
+
+
+
 QUERY COMMANDS
 SELECT photos[5] FROM nearby WHERE place_id = 1000;
-
 
 CREATE TABLE apateez_nearby (
     "place_id" int,

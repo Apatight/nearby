@@ -9,8 +9,8 @@ http.globalAgent.maxSockets = 50;
 
 // Trying compression
 const compression = require('compression')
-const db = require('../db/postgresdb.js'); // For Postgres
-// const db = require('../db/mongodb.js'); // For Mongo
+// const db = require('../db/postgresdb.js'); // For Postgres
+const db = require('../db/mongodb.js'); // For Mongo
 
 // Redis
 const redis = require('redis');
