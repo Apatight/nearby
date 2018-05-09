@@ -4,8 +4,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 3004;
-// const http = require('http');
-// http.globalAgent.maxSockets = 50;
+const http = require('http');
+http.globalAgent.maxSockets = 50;
 
 // Trying compression
 const compression = require('compression')
