@@ -9,18 +9,16 @@ http.globalAgent.maxSockets = 50;
 
 // Trying compression
 const compression = require('compression')
-// const db = require('../db/postgresdb.js'); // For Postgres
-const db = require('../db/mongodb.js'); // For Mongo
+const db = require('../db/postgresdb.js'); // For Postgres
+// const db = require('../db/mongodb.js'); // For Mongo
 
 // Redis
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
-// For Docker Image
-// const client = redis.createClient({ "host":'redis', "port": REDIS_PORT });
 
-// For localhost
-const client = redis.createClient( REDIS_PORT );
+const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
+// const client = redis.createClient( REDIS_PORT ); // For localhost
 
 // Trying compression
 app.use(compression({

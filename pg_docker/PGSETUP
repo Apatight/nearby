@@ -1,0 +1,13 @@
+pg_dump -C -h localhost -U localuser dbname | psql -h remotehost -U remoteuser dbname
+
+
+
+
+pg_dump -C -h 13.57.197.210 -U pguser apateez | psql -h localhost -U localuser dbname
+
+
+// Seed Docker DATABASE
+psql -h 13.57.197.210 -p 5432 -U pguser -d apateez -f /Users/oliverhan/dev/system-design-capstone/nearby/seeder/seedCSVPostgres.sql
+
+// LOGIN TO PG ON DOCKER
+psql postgres -h 13.57.197.210 -p 5432 -U pguser -d apateez
