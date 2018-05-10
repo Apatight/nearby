@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // const mongoUrlDocker = 'mongodb://mongodb/apateez-nearby';
 const mongoUrl = 'mongodb://localhost/apateez-nearby';
-const mongoUrlDocker = 'mongodb://devadmin:devadmin@54.193.2.78:27017/admin';
+const mongoUrlDocker = 'mongodb://devadmin:devadmin@54.241.128.139:27017/admin';
 
 
 mongoose.connect(mongoUrlDocker); // Try localhost first

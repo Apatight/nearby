@@ -13,11 +13,11 @@ const db = require('../db/postgresdb.js'); // For Postgres
 // const db = require('../db/mongodb.js'); // For Mongo
 
 // Redis
-const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
-
-
-const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
+// const redis = require('redis');
+// const REDIS_PORT = process.env.REDIS_PORT || 6379;
+//
+//
+// const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
 // const client = redis.createClient( REDIS_PORT ); // For localhost
 
 // Trying compression
@@ -41,32 +41,8 @@ app.get('/restaurants/:id', (req, res) => {
 });
 
 // Postgres only
-// app.get('/api/restaurants/:id/nearby', (req, res, next) => {
-//   const placeId = req.params.id;
-//   const results = {};
-//   db.findOne(placeId)
-//   .then((data) => {
-//     results.restaurant = data[0];
-//     db.findMany(data[0].nearby)
-//     .then((nearbyData) => {
-//       results.nearby = nearbyData
-//       // client.setex(placeId, 60, JSON.stringify(results));
-//       client.setnx(placeId, JSON.stringify(results));
-//       res.status(200);
-//       res.send(results);
-//     })
-//     .catch((err) => {
-//       throw err;
-//     })
-//   })
-//   .catch((err) => {
-//     throw err;
-//   })
-// })
-
-// Redis
-const getRestaurant  = (req, res) => {
-  let placeId = req.params.id;
+app.get('/api/restaurants/:id/nearby', (req, res, next) => {
+  const placeId = req.params.id;
   const results = {};
   db.findOne(placeId)
   .then((data) => {
@@ -75,7 +51,6 @@ const getRestaurant  = (req, res) => {
     .then((nearbyData) => {
       results.nearby = nearbyData
       // client.setex(placeId, 60, JSON.stringify(results));
-      client.setex(placeId, 60*60, JSON.stringify(results));
       res.status(200);
       res.send(results);
     })
@@ -86,21 +61,45 @@ const getRestaurant  = (req, res) => {
   .catch((err) => {
     throw err;
   })
-}
+})
 
-const getCache = (req, res, next) => {
-  let placeId = req.params.id;
-  client.get(placeId, (err, result) => {
-    if (result) {
-      res.status(200);
-      res.send(result);
-    } else {
-      getRestaurant(req, res);
-    }
-  });
-}
-
-app.get('/api/restaurants/:id/nearby', getCache);
+// Redis
+// const getRestaurant  = (req, res) => {
+//   let placeId = req.params.id;
+//   const results = {};
+//   db.findOne(placeId)
+//   .then((data) => {
+//     results.restaurant = data[0];
+//     db.findMany(data[0].nearby)
+//     .then((nearbyData) => {
+//       results.nearby = nearbyData
+//       // client.setex(placeId, 60, JSON.stringify(results));
+//       client.setex(placeId, 60*60, JSON.stringify(results));
+//       res.status(200);
+//       res.send(results);
+//     })
+//     .catch((err) => {
+//       throw err;
+//     })
+//   })
+//   .catch((err) => {
+//     throw err;
+//   })
+// }
+//
+// const getCache = (req, res, next) => {
+//   let placeId = req.params.id;
+//   client.get(placeId, (err, result) => {
+//     if (result) {
+//       res.status(200);
+//       res.send(result);
+//     } else {
+//       getRestaurant(req, res);
+//     }
+//   });
+// }
+//
+// app.get('/api/restaurants/:id/nearby', getCache);
 
 app.listen(PORT, () => {
   // console.log('connected to port:', PORT)

@@ -1,7 +1,8 @@
 # DATA FILES
 */dump.rdb
-*/dataList*
 node_modules
 .circleci
-*/allPhotoRef.json
+allPhotoRef.json
 newrelic_agent.log
+dataList.json
+dataList.csv
