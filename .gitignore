@@ -49,3 +49,4 @@ coverage
 build/
 
 package-lock.json
+*/mongo_docker/SETUP

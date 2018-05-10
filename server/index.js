@@ -15,8 +15,12 @@ const db = require('../db/mongodb.js'); // For Mongo
 // Redis
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
-const client = redis.createClient({ "host":'redis', "port": REDIS_PORT });
-// const client = redis.createClient( REDIS_PORT );
+
+// For Docker Image
+// const client = redis.createClient({ "host":'redis', "port": REDIS_PORT });
+
+// For localhost
+const client = redis.createClient( REDIS_PORT );
 
 // Trying compression
 app.use(compression({
