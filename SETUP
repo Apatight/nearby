@@ -1,3 +1,8 @@
+DOCKER
+mongoimport --host mongodb1.example.net --port 27017 --username admin --password "password" --collection restaurants --db apateez-nearby --file /opt/backups/mdb1-examplenet.json
+
+
+
 
 for JSON
 psql -U oliverhan apateez_nearby -f /Users/oliverhan/dev/system-design-capstone/nearby/seedPostgres.sql

@@ -28,8 +28,7 @@
     "generate:csv": "node seeder/createCSVDummyData.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "docker:mongo": "npm run build && npm run generate:json",
-    "docker:postgres": "npm run build && npm run generate:csv && npm run seed:postgres && npm run start",
+    "docker": "npm run build && npm run start",
     "artillery": "artillery run ./.benchmark/hello.yml"
   },
   "dependencies": {

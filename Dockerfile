@@ -1,4 +1,4 @@
-FROM node:7.7.2-alpine
+FROM node:latest
 
 RUN mkdir -p /src/app
 
@@ -10,4 +10,4 @@ RUN npm install
 
 EXPOSE 3004
 
-CMD [ "npm", "run", "docker:postgres" ]
+CMD [ "npm", "run", "docker" ]

@@ -1,0 +1,68 @@
+mongoimport --host mongodb://54.193.2.78 --port 27017 --jsonArray -d apateez-nearby --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+
+mongoimport --host mongodb://54.193.2.78:27017/apateez-nearby --username devadmin --password "devadmin" --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+mongoimport --uri mongodb://oliverhan:oliver@54.193.2.78:27017/apateez-nearby --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+mongoimport --host mongodb://54.193.2.78:27017/apateez-nearby --username devadmin --password "devadmin" --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+mongoimport mongodb://54.193.2.78:27017/ -u devadmin -p devadmin -d admin --authenticationDatabase "admin" --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+
+mongoimport --host mongodb://54.193.2.78:27017/ -u devadmin -p devadmin --jsonArray --db admin --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+mongoimport --host mongodb://54.193.2.78:27017/ --db apateez-nearby --collection restaurants --jsonArray --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+
+mongoimport --uri mongodb://54.193.2.78:27017/apateez-nearby --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+mongoimport --host mongodb://54.193.2.78:27017/ --jsonArray --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+// go into mongo in docker
+docker-compose exec mongodb mongo
+
+
+// TO GET INTO MONGO
+mongo mongodb://54.193.2.78:27017/ -u devadmin -p devadmin --authenticationDatabase "admin"
+
+
+// SEED admin
+mongoimport --uri mongodb://devadmin:devadmin@54.193.2.78:27017/admin --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+// SEED ACTUAL
+mongoimport --uri mongodb://devadmin:devadmin@54.193.2.78:27017/apateez-nearby --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
+// CREATE ADMIN USER
+db.createUser(
+  {
+    user: "devadmin",
+    pwd: "devadmin",
+    roles : ["readWriteAnyDatabase","dbAdminAnyDatabase","clusterAdmin"]
+  }
+)
+
+db.createUser(
+  {
+    user: "devadmin",
+    pwd: "devadmin",
+    roles: [ "userAdminAnyDatabase","dbAdminAnyDatabase","readWriteAnyDatabase"]
+  }
+)
+
+readWriteAnyDatabase
+dbAdminAnyDatabase
+clusterAdmin
+
+
+
+
+db.updateUser("devadmin",
+  {
+    roles: [ { role: "root", db: "apateez-nearby" } ]
+  }
+)
+
+docker-compose exec mongodb mongo -u devadmin -p devadmin --authenticationDatabase "admin"
+
+
+
+docker-machine create --driver amazonec2 --amazonec2-access-key AKIAIUJ5NBPWO6COBAQQ --amazonec2-secret-key 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 --amazonec2-open-port 27017 --amazonec2-region us-west-1 apatight-nearby-mongo

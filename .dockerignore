@@ -3,3 +3,5 @@
 */dataList*
 node_modules
 .circleci
+*/allPhotoRef.json
+newrelic_agent.log

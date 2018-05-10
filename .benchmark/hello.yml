@@ -1,10 +1,9 @@
 config:
-  target: 'http://localhost:3004'
-  http:
-    pool: 20
+  target: 'http://54.219.129.40:3004'
   phases:
     - duration: 60
-      arrivalRate: 200
+      arrivalRate: 400
+      rampTo: 400
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
@@ -12,4 +11,4 @@ scenarios:
   - name: "Load page"
     flow:
     - get:
-        url: "/api/restaurants/99/nearby"
+        url: "/api/restaurants/100/nearby"
