@@ -1,8 +1,22 @@
 # DATA FILES
-*/dump.rdb
 node_modules
 .circleci
 allPhotoRef.json
 newrelic_agent.log
 dataList.json
 dataList.csv
+README.md
+SETUP
+STYLE-GUIDE.MD
+targets.txt
+temp.rdb
+dump.rdb
+.gitignore
+.eslintrc
+.eslint
+seeder
+pg_docker
+mongo_docker
+.benchmark
+.git
+tests
