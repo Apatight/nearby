@@ -43,9 +43,9 @@ app.get('/restaurants/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-// loader.io
-app.get('/loaderio-2d0adac114914c2d74947f87fd05d4a8', (req, res) => {
-  res.sendFile(path.join(__dirname, '../loaderio-2d0adac114914c2d74947f87fd05d4a8.txt'));
+// loader.io docker-compose up --build -d
+app.get('/loaderio-38bd696240abe35aa823c30c2144fe42', (req, res) => {
+  res.send('loaderio-38bd696240abe35aa823c30c2144fe42');
 });
 
 // // Postgres only

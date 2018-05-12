@@ -1,7 +1,9 @@
 version: '3'
 
 services:
-    nginx:
+    balancer:
       image: nginx:latest
+      build: .
+      restart: always
       ports:
         - "80:80"
