@@ -12,6 +12,8 @@ mongo mongodb://devadmin:devadmin@54.241.128.139:27017/ --authenticationDatabase
 // SEED admin
 mongoimport --uri mongodb://devadmin:devadmin@54.241.128.139:27017/admin --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
 
+mongoimport --uri mongodb://zagetreviews:zagetreviews@54.241.128.139:27017/admin --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
+
 // SEED ACTUAL
 mongoimport --uri mongodb://devadmin:devadmin@54.241.128.139:27017/apateez-nearby --jsonArray --collection restaurants --file /Users/oliverhan/dev/system-design-capstone/nearby/dataList.json --numInsertionWorkers 16
 

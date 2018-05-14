@@ -19,8 +19,8 @@ const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 //
 
-const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
-// const client = redis.createClient( REDIS_PORT ); // For localhost
+// const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
+const client = redis.createClient( REDIS_PORT ); // For localhost
 // const client = redis.createClient({ "host":'redis.1i3yro.clustercfg.usw1.cache.amazonaws.com', "port": REDIS_PORT }); // For Redis Cluster AWS
 
 // Trying compression
@@ -43,7 +43,7 @@ app.get('/restaurants/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-// loader.io docker-compose up --build -d
+// loader.io  docker-compose down --rm all docker-compose up --build -d
 app.get('/loaderio-38bd696240abe35aa823c30c2144fe42', (req, res) => {
   res.send('loaderio-38bd696240abe35aa823c30c2144fe42');
 });
