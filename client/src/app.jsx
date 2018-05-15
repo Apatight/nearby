@@ -48,7 +48,6 @@ export default class Nearby extends React.Component {
   }
 
 	render() {
-
     let restaurantCards = this.state.nearbyRestaurants.map((num, index) => {
       return (
         <RestaurantCard nearbyRestaurant={this.state.nearbyRestaurants[index]} key={index.toString()} switchRestaurant={this._goToRestaurant.bind(this)} />
