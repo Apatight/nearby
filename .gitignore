@@ -32,6 +32,8 @@ allPhotoRef.json
 
 ## Webpack bundle ##
 /client/dist/bundle.js
+/client/dist/app.js
+/client/dist/app-server.js
 
 pids
 *.pid
