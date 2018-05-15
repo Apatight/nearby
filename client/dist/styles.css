@@ -1,3 +1,8 @@
+.proxy-container {
+  display: flex;
+  justify-content: center;
+}
+
 .nearby-padding {
   color: #101820;
   font: 15px/20px 'Source Sans Pro';
@@ -11,7 +16,7 @@
   letter-spacing: 0.07em;
   padding-bottom: 30px;
   padding-top: 5px;
-  border-top: 1px black solid; 
+  border-top: 1px black solid;
 }
 
 .restaurant-cards {
@@ -132,7 +137,7 @@
 
 .apateez-logo-small, .google-logo-small,
 .restaurant-details-ratings-zagat-rated, .restaurant-details-ratings-zagat-rated-value,
-.restaurant-details-ratings-google-rating, .restaurant-details-ratings-stars, 
+.restaurant-details-ratings-google-rating, .restaurant-details-ratings-stars,
 .restaurant-details-ratings-comments {
   vertical-align: middle;
   padding-right: 2px;
@@ -197,5 +202,3 @@
   padding-right: 20px;
   background-clip: content-box;
 }
-
-

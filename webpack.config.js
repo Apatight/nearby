@@ -3,20 +3,15 @@ const path = require('path');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 
-module.exports = {
+const common = {
   plugins: [
     new webpack.DefinePlugin({
-      'BASE_URL': JSON.stringify('http://54.67.27.193:3004'),
+      'BASE_URL': JSON.stringify('http://127.0.0.1:3004'),
       'IMAGE_URL': JSON.stringify('https://s3-us-west-1.amazonaws.com/apateez'),
     })
   ],
-  entry: `${SRC_DIR}/app.jsx`,
-  output: {
-    filename: 'bundle.js',
-    path: DIST_DIR
-  },
   module : {
-    loaders : [
+    rules : [
       {
         test : /\.jsx?/,
         include : SRC_DIR,
@@ -25,11 +20,30 @@ module.exports = {
         query: {
           presets: ['react', 'es2015']
        },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader','css-loader']
       }
     ],
   }
 };
+
+const client = {
+  entry: `${SRC_DIR}/client.js`,
+  output: {
+    path: DIST_DIR,
+    filename: 'app.js'
+  }
+};
+
+const server = {
+  entry: `${SRC_DIR}/server.js`,
+  target: 'node',
+  output: {
+    path: DIST_DIR,
+    filename: 'app-server.js',
+    libraryTarget: 'commonjs-module'
+  }
+};
+
+module.exports = [
+  Object.assign({}, common, client),
+  Object.assign({}, common, server)
+];

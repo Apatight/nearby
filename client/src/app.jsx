@@ -1,48 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RestaurantCard from './components/RestaurantCard.jsx';
-import '../dist/styles.css';
+// import '../dist/styles.css';
 import Footer from './components/Footer.jsx';
-import $ from 'jquery';
 import axios from 'axios';
 
-class App extends React.Component {
+export default class Nearby extends React.Component {
 	constructor(props) {
 		super(props);
     this.state = {
-      currentRestaurant: {},
-      nearbyRestaurants: [],
+      currentRestaurant: this.props.currentRestaurant || {},
+      nearbyRestaurants: this.props.nearbyRestaurants || [],
       checkID: true
     }
 	}
 
   componentDidMount() {
-    this._getData();
+		if (this.state.currentRestaurant = {}) {
+			this._getData();
+		}
   }
 
   _getData() {
-    // console.log('window location.href: ', window.location.href);
-
-    var id = window.location.href.split('/')[4];
-    // console.log('getting recommended restaurants for id: ' + id)
-
-    //error handling if id is included in URL
-    if (window.location.href.split('/')[4] !== undefined) {
-			axios.get(`/api/restaurants/${id}/nearby`)
-			// axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
+		const id = this.props.placeId || window.location.href.split('/')[4];
+		if (id !== undefined) {
+			axios.get(`${BASE_URL}/api/restaurants/${id}/nearby`)
+			// axios.get(`/api/restaurants/${id}/nearby`)
 			.then(({data}) => {
-				// console.log('axios got', data )
 				this.setState({
 					currentRestaurant: data.restaurant,
 					nearbyRestaurants: data.nearby,
-					// currentRestaurant: data[0],
-					// nearbyRestaurants: data[1]
 				})
 			})
 			.catch((err) => {
-      	throw err;
-    	})
-		} else {
+	    	throw err;
+	  	})
+		}	else {
       this.setState({
         checkID: false
       })
@@ -75,4 +68,4 @@ class App extends React.Component {
 	}
 }
 
-ReactDOM.render(<App />, document.getElementById('nearby-app'));
+// ReactDOM.render(<App />, document.getElementById('nearby-app'));

@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-
+app.use('/', express.static(path.join(__dirname, '../client/dist')));
 app.use('/restaurants/', express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/restaurants/:id', (req, res) => {
