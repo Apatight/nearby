@@ -7,3 +7,11 @@
 **/tests
 **/createPhotos.js
 **/createDummyData.js
+/seeder
+dataList.json
+dataList.csv
+mongo_docker
+nginx
+pg_docker
+**/app-server.js
+**/app.js

@@ -15,8 +15,11 @@ dump.rdb
 .eslintrc
 .eslint
 seeder
-pg_docker
-mongo_docker
+
 .benchmark
 .git
 tests
+
+pg_docker
+mongo_docker
+Nginx

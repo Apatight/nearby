@@ -1,17 +1,14 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-
-// const mongoUrlDocker = 'mongodb://mongodb/apateez-nearby';
 const mongoUrl = 'mongodb://localhost/apateez-nearby';
-const mongoUrlDocker = 'mongodb://devadmin:devadmin@54.241.128.139:27017/admin';
+const mongoUrlDocker = 'mongodb://MONGO_USER:MONGO_PASS@54.241.128.139:27017/admin';
 
 
 mongoose.connect(mongoUrlDocker); // Try localhost first
 // mongoose.connect(mongoUrl); // Try localhost first
 mongoose.connection.on('connected', () => {
-  // console.log('Mongoose connection open');
 });
 mongoose.connection.on('error', () => {
-  // console.log(`Mongoose default connection error: ${err}`);
   mongoose.connect(mongoUrl);
 });
 
@@ -29,26 +26,13 @@ const restaurantSchema = mongoose.Schema({
 
 const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
-// findAll retrieves all stories
-// const findAll = (callback) => {
-//   // console.log('finding all!');
-//   RestaurantModel.find({}, callback);
-// };
+const findOne = id => RestaurantModel.find({ place_id: id });
 
-// findOne will retrieve the restaurant associated with the given id
-const findOne = (id, callback) =>
-  // console.log("find " + id);
-  RestaurantModel.find({ place_id: id })
-;
+const insertOne = restaurant => RestaurantModel.create(restaurant);
 
-// insertOne inserts a restaurant into the db
-const insertOne = (restaurant, callback) => RestaurantModel.create(restaurant);
+const findMany = (ids) => RestaurantModel.find({ place_id: { $in: ids } });
 
-// retrieve many restaurants
-const findMany = (ids, callback) => RestaurantModel.find({ place_id: { $in: ids } });
-const clearDb = (cb) => {
-  RestaurantModel.remove({}, cb);
-};
+const clearDb = () => RestaurantModel.remove({});
 
 
 module.exports = {

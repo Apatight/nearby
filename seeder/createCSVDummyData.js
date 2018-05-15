@@ -1,7 +1,6 @@
 const fs = require('fs');
 const faker = require('faker');
 const photoRefs = require('../allPhotoRef.json');
-
 const fileName = 'dataList.csv';
 
 const entryNum = 10000000; // For production
@@ -19,7 +18,16 @@ const createEntry = (count) => {
     nearbyArr.push(Math.floor(Math.random() * entryNum));
   }
 
-  const obj = `${count},${faker.name.findName()},${Math.floor(Math.random() * 5.95)},${Math.floor(Math.random() * 5.95)},"{${photosArr}}",${faker.address.county()},${Math.floor(Math.random() * 4.9)},${faker.address.city()},"{${nearbyArr}}"`;
+  const obj = `
+    ${count},
+    ${faker.name.findName()},
+    ${Math.floor(Math.random() * 5.95)},
+    ${Math.floor(Math.random() * 5.95)},
+    "{${photosArr}}",
+    ${faker.address.county()},
+    ${Math.floor(Math.random() * 4.9)},
+    ${faker.address.city()},"
+    {${nearbyArr}}"`;
   return obj;
 };
 
