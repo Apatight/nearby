@@ -15,7 +15,8 @@ dump.rdb
 .eslintrc
 .eslint
 seeder
-
+dump.rdb
+temp.rdb
 .benchmark
 .git
 tests
