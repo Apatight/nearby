@@ -6,7 +6,7 @@ const DIST_DIR = path.join(__dirname, '/client/dist');
 const common = {
   plugins: [
     new webpack.DefinePlugin({
-      'BASE_URL': JSON.stringify('http://127.0.0.1:3004'),
+      'BASE_URL': JSON.stringify('http://nearbyb-2055818164.us-west-1.elb.amazonaws.com'),
       'IMAGE_URL': JSON.stringify('https://s3-us-west-1.amazonaws.com/apateez'),
     })
   ],

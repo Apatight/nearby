@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RestaurantCard from './components/RestaurantCard.jsx';
-// import '../dist/styles.css';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
 
@@ -66,5 +65,3 @@ export default class Nearby extends React.Component {
 		)
 	}
 }
-
-// ReactDOM.render(<App />, document.getElementById('nearby-app'));

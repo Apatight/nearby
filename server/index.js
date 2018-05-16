@@ -1,5 +1,4 @@
 // require('newrelic');
-// require('dotenv').config();
 const express = require('express');
 
 const app = express();
@@ -10,6 +9,8 @@ const PORT = process.env.PORT || 3004;
 const http = require('http');
 http.globalAgent.maxSockets = 50;
 
+const REDIS_HOST = '127.0.0.1'; // deployed: 172.31.27.224
+
 
 // Trying compression
 const compression = require('compression');
@@ -18,7 +19,8 @@ const db = require('../db/postgresdb.js'); // For Postgres
 
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
-const client = redis.createClient({ "host":'redis', "port": REDIS_PORT }); // For Docker Image
+// const client = redis.createClient({ "host":'redis', "port": REDIS_PORT, pass: "password" }); // For Docker Image
+const client = redis.createClient( {host: REDIS_HOST, port: REDIS_PORT} ); // CHANGE HERE FOR REDIS DOCKER
 // const client = redis.createClient(REDIS_PORT); // For localhost
 
 // Trying compression
@@ -26,7 +28,8 @@ app.use(compression({
   filter() { return true; },
 }));
 
-// Create a middleware that adds a X-Response-Time header to responses.
+// Create a middleware that adds a X-Response-Time header to responses. docker-compose up --build -d
+// %{1:1000:1, 1001:10000:3, 1:1000:1, 1001:10000:2, 1001:10000:1, 1:1000:1, *:1-10000000}
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -43,9 +46,9 @@ app.get('/restaurants/:id', (req, res) => {
 });
 
 // loader.io  docker-compose down --rm all docker-compose up --build -d
-// app.get('/loaderio-38bd696240abe35aa823c30c2144fe42', (req, res) => {
-//   res.send('loaderio-38bd696240abe35aa823c30c2144fe42');
-// });
+app.get('/loaderio-a3a5d132e70b766079786e938997d57c', (req, res) => {
+  res.send('loaderio-a3a5d132e70b766079786e938997d57c');
+});
 
 // // Postgres only
 // app.get('/api/restaurants/:id/nearby', (req, res, next) => {

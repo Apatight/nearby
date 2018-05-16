@@ -4,19 +4,15 @@ services:
     nearby:
       build: .
       restart: always
-      links:
-        - redis
-      depends_on:
-        - redis
       ports:
         - '3004:3004'
-      environment:
-        - REDIS_PORT_6379_TCP_ADDR:"redis:6379"
-
-    redis:
-      image: redis:alpine
-      restart: always
-      volumes:
-      - "./home/redis/data:/data"
-      ports:
-        - 6379:6379
+    #   environment:
+    #     - REDIS_PORT_6379_TCP_ADDR:"redis:6379"
+    #
+    # redis:
+    #   image: redis:alpine
+    #   restart: always
+    #   volumes:
+    #   - "./home/redis/data:/data"
+    #   ports:
+    #     - 6379:6379
