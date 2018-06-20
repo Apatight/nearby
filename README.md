@@ -3,7 +3,7 @@
 > The Journey to 10K RPS
 
 ## Progress
-![alt text](https://imgur.com/KySSXKw)
+![alt text](https://i.imgur.com/KySSXKw.png)
 Achieved over 10,000 Request Per Second using only AWS EC2 Micro instances. 
 Node Backend + Redis Cache + Postgres DB
 
