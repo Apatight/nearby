@@ -2,6 +2,12 @@
 
 > The Journey to 10K RPS
 
+## Progress
+![alt text](https://imgur.com/KySSXKw)
+Achieved over 10,000 Request Per Second using only AWS EC2 Micro instances. 
+Node Backend + Redis Cache + Postgres DB
+
+
 ## Related Projects
 
   - https://github.com/Apatight/reviews
@@ -47,3 +53,5 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
+
+
